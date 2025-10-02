@@ -1,0 +1,74 @@
+{% extends 'employer/base.html' %}
+{% block title %}Сотрудники{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Список сотрудников</h2>
+
+<!-- Форма фильтров -->
+<form method="get" class="row g-3 mb-4">
+    <!-- Факультет -->
+    <div class="col-md-4">
+        <label for="faculty" class="form-label">Факультет</label>
+        <select name="faculty" id="faculty" class="form-select">
+            <option value="">Все</option>
+            {% for f in faculties %}
+                <option value="{{ f }}" {% if request.GET.faculty == f %}selected{% endif %}>{{ f }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Отдел -->
+    <div class="col-md-4">
+        <label for="department" class="form-label">Отдел</label>
+        <select name="department" id="department" class="form-select">
+            <option value="">Все</option>
+            {% for d in departments %}
+                <option value="{{ d }}" {% if request.GET.department == d %}selected{% endif %}>{{ d }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Год приёма -->
+    <div class="col-md-4">
+        <label for="hire_date" class="form-label">Год</label>
+        <select name="hire_date" id="hire_date" class="form-select">
+            <option value="">Все</option>
+            {% for y in years %}
+                <option value="{{ y }}" {% if request.GET.hire_date == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Применить фильтры</button>
+    </div>
+</form>
+
+
+
+    {% if employers %}
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>№</th>
+                <th>ФИО</th>
+                <th>Должность</th>
+                <th>Отдел</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employers %}
+            <tr style="cursor: pointer;" onclick="window.location='{% url 'employer:employer_detail' emp.pk %}'">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ emp.last_name }} {{ emp.first_name }} {{ emp.middle_name }}</td>
+                <td>{{ emp.position }}</td>
+                <td>{{ emp.department }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Сотрудников пока нет.</p>
+    {% endif %}
+
+{% endblock %}

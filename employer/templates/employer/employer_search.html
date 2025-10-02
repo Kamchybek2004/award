@@ -1,0 +1,62 @@
+{% extends "employer/base.html" %}
+
+{% block title %}Поиск сотрудников{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="mb-4">Поиск сотрудников</h2>
+
+    <form method="get" class="row g-3 mb-4" role="search">
+
+        <div class="col-md-8">
+            <input type="text" name="query" class="form-control me-2" type="search" placeholder="Введите имя, должность или награду"
+                   value="{{ query }}">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Найти</button>
+        </div>
+    </form>
+
+    {% if query %}
+        <h3 class="mb-3">Результаты поиска: "{{ query }}"</h3>
+
+        {% if results %}
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for employer in results %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ employer.last_name }} {{ employer.first_name }}</h5>
+                                {% if employer.position %}
+                                    <p class="card-text"><strong>Должность:</strong> {{ employer.position }}</p>
+                                {% endif %}
+                                {% if employer.department %}
+                                    <p class="card-text"><strong>Отдел:</strong> {{ employer.department }}</p>
+                                {% endif %}
+                                {% if employer.faculty %}
+                                    <p class="card-text"><strong>Факультет:</strong> {{ employer.faculty }}</p>
+                                {% endif %}
+                                {% if employer.awards.all %}
+                                    <p class="card-text"><strong>Награды:</strong></p>
+                                    <ul class="list-group list-group-flush">
+                                        {% for award in employer.awards.all %}
+                                            <li class="list-group-item">{{ award }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                <div class="card-footer text-center">
+                                    <a href="{% url 'employer:employer_detail' employer.pk %}" class="btn btn-primary mt-2">Подробно</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Ничего не найдено.
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

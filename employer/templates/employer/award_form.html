@@ -1,0 +1,114 @@
+{% extends 'employer/base.html' %}
+{% block title %}{% if award %}Редактировать{% else %}Добавить{% endif %} награду{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Добавить награду</h5>
+        </div>
+        <div class="card-body">
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="id_type" class="form-label">Категория награды</label>
+              {{ form.type }}
+              {% if form.type.errors %}
+                <div class="text-danger small">{{ form.type.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3" id="field_state_award">
+              <label for="id_state_award" class="form-label">Гос. награда</label>
+              {{ form.state_award }}
+              {% if form.state_award.errors %}
+                <div class="text-danger small">{{ form.state_award.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3" id="field_honorary_title">
+              <label for="id_honorary_title" class="form-label">Почётное звание</label>
+              {{ form.honorary_title }}
+              {% if form.honorary_title.errors %}
+                <div class="text-danger small">{{ form.honorary_title.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3" id="field_title">
+              <label for="id_title" class="form-label">Наименование ведомственной награды</label>
+              {{ form.title }}
+              {% if form.title.errors %}
+                <div class="text-danger small">{{ form.title.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_award_date" class="form-label">Дата награждения</label>
+              {{ form.award_date }}
+              {% if form.award_date.errors %}
+                <div class="text-danger small">{{ form.award_date.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_issued_by" class="form-label">Кем выдано</label>
+              {{ form.issued_by }}
+              {% if form.issued_by.errors %}
+                <div class="text-danger small">{{ form.issued_by.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_document_number" class="form-label">Приказ №</label>
+              {{ form.document_number }}
+              {% if form.document_number.errors %}
+                <div class="text-danger small">{{ form.document_number.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="id_description" class="form-label">Описание</label>
+              {{ form.description }}
+              {% if form.description.errors %}
+                <div class="text-danger small">{{ form.description.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success">💾 Сохранить</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const typeField = document.getElementById("id_type");
+    const stateField = document.getElementById("field_state_award");
+    const honoraryField = document.getElementById("field_honorary_title");
+    const titleField = document.getElementById("field_title");
+
+    function toggleFields() {
+        const value = typeField.value;
+
+        stateField.style.display = (value === "state") ? "block" : "none";
+        honoraryField.style.display = (value === "honorary") ? "block" : "none";
+        titleField.style.display = (value === "department") ? "block" : "none";
+    }
+
+    typeField.addEventListener("change", toggleFields);
+    toggleFields(); // вызов при загрузке
+});
+</script>
+</div>
+{% endblock %}

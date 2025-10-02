@@ -1,0 +1,102 @@
+{% extends "employer/base.html" %}
+
+{% block title %}{{ employer.last_name }} {{ employer.first_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <!-- Карточка профиля 
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="card-title">
+        {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name }}
+      </h2>
+      <p><b>Дата рождения:</b> {{ employer.birth_date }}</p>
+      <p><b>Должность:</b> {{ employer.position }}</p>
+      <p><b>Факультет:</b> {{ employer.faculty }}</p>
+      <p><b>Отдел:</b> {{ employer.department }}</p>
+      <p><b>Дата приёма:</b> {{ employer.hire_date }}</p>
+    </div>
+  </div> -->
+
+  <!-- Карточка профиля -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="card-title mb-4">
+        {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name }}
+      </h2>
+
+      <table class="table table-bordered mb-0">
+        <tbody>
+          <tr>
+            <th scope="row" style="width: 200px;">Дата рождения:</th>
+            <td>{{ employer.birth_date }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Должность:</th>
+            <td>{{ employer.position }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Факультет:</th>
+            <td>{{ employer.faculty }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Отдел:</th>
+            <td>{{ employer.department }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Дата приёма:</th>
+            <td>{{ employer.hire_date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Блок наград -->
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Награды</h4>
+      <span class="badge bg-primary">Всего: {{ employer.awards.count }}</span>
+    </div>
+    <div class="card-body p-0">
+      {% if employer.awards.all %}
+      <table class="table table-striped mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>№</th>
+            <th>Наименование награды</th>
+            <th>Дата награждения</th>
+            <th>Выдано (орган)</th>
+            <th>Тип награды</th>
+            <th>Приказ №</th>
+            <th>Описание</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for award in employer.awards.all %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ award }}</td>
+            <td>{{ award.award_date }}</td>
+            <td>{{ award.issued_by }}</td>
+            <td>{{ award.get_type_display }}</td>
+            <td>{{ award.document_number }}</td>
+            <td>{{ award.description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="p-3 text-muted">Наград пока нет.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Кнопка назад -->
+  <a href="{% url 'employer:employer_list' %}" class="btn btn-secondary mt-3">
+    Назад к списку
+  </a>
+
+</div>
+{% endblock %}

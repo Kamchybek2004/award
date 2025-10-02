@@ -1,0 +1,44 @@
+{% extends 'employer/base.html' %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<div class="container-fluid px-2 px-md-4">
+    <h2 class="mb-4 text-center text-md-start">Личный кабинет</h2>
+
+    <!-- Карточка профиля -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <p class="mb-2"><b>ФИО:</b> {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name }}</p>
+            <p class="mb-2"><b>Дата рождения:</b> {{ employer.birth_date }}</p>
+            <p class="mb-2"><b>Должность:</b> {{ employer.position }}</p>
+            <p class="mb-2"><b>Отдел:</b> {{ employer.department }}</p>
+            <p class="mb-2"><b>Факультет:</b> {{ employer.faculty }}</p>
+            <p class="mb-3"><b>Дата приёма:</b> {{ employer.hire_date }}</p>
+
+            <!-- Кнопки -->
+            <div class="d-grid gap-2 d-sm-flex">
+                <a href="{% url 'employer:edit_profile' %}" class="btn btn-warning btn-sm w-100 w-sm-auto">Редактировать профиль</a>
+                <a href="{% url 'employer:add_award' %}" class="btn btn-success btn-sm w-100 w-sm-auto">Добавить награду</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Список наград -->
+    <h3 class="mb-3 text-center text-md-start">Мои награды</h3>
+    <div class="list-group">
+        {% for award in employer.awards.all %}
+            <div class="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
+                <div class="mb-2 mb-sm-0">
+                    <b>{{ award }}</b><br>
+                    <small class="text-muted">Дата: {{ award.award_date }}</small>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="{% url 'employer:edit_award' award.pk %}" class="btn btn-sm btn-outline-primary">✏️</a>
+                    <a href="{% url 'employer:delete_award' award.pk %}" class="btn btn-sm btn-outline-danger">❌</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="list-group-item text-center">Наград пока нет</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

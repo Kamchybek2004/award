@@ -1,0 +1,15 @@
+{% extends 'employer/base.html' %}
+{% block title %}Удалить{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="mb-4">Удалить {{ object }}</h2>
+        <p>Вы уверены, что хотите удалить эту запись?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="{% url 'employer:dashboard' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

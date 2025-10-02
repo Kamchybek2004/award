@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Award System{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'employer:employer_list' %}">Список</a>
+
+        <!-- Кнопка-гамбургер -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Контент меню -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- Поиск -->
+            <form method="get" action="{% url 'employer:employer_search' %}" 
+                class="d-flex my-2 my-lg-0 ms-lg-3 flex-grow-1 flex-lg-grow-0" role="search">
+
+                <input class="form-control me-2" type="search" name="query" 
+                    placeholder="Поиск сотрудников"
+                    aria-label="Поиск" value="{{ request.GET.query|default:'' }}">
+                <button class="btn btn-light" type="submit">Найти</button>
+            </form>
+
+           <!-- Навигация справа -->
+           <ul class="navbar-nav ms-auto d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'employer:dashboard' %}">Личный кабинет</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'employer:logout' %}" class="nav-item m-0 p-0">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link text-light m-0 p-0">
+                                Выйти
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'employer:login' %}">Войти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'employer:register' %}">Регистрация</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-4 mt-5">
+    <div class="container">
+        <div class="row text-center text-md-start">
+
+            <!-- Левая колонка -->
+            <div class="col-12 col-md-6 mb-2 mb-md-0">
+                <div><strong>Контакты:</strong> 
+                    <a href="tel:+996501287308" class="text-light text-decoration-none">+996 501 287 308</a>
+                </div>
+                <div><strong>Тех. поддержка:</strong> 
+                    <a href="tel:+996501287308" class="text-light text-decoration-none">+996 501 287 308</a>
+                </div>
+            </div>
+
+            <!-- Правая колонка -->
+            <div class="col-12 col-md-6">
+                <div class="mb-1">
+                    <strong>Сайт:</strong> 
+                    <a href="https://nsu_award.kg" class="text-light text-decoration-none" target="_blank">nsu_award.kg</a>
+                </div>
+                <div>
+                    &copy; {{ now|date:"Y" }} Все права защищены
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
