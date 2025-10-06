@@ -1,31 +1,29 @@
-"""
-Django settings for source project.
-"""
-
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
 # Пути
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Загружаем .env
 dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
-# Безопасность
+# Основные настройки
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
-# Доверие к HTTPS через прокси (Render)
-if not DEBUG:
+# ALLOWED_HOSTS из .env + wildcard для Render
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS += [".onrender.com"]  # разрешаем все поддомены Render
+
+# Протоколы безопасности
+if DEBUG:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+else:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Добавь сюда свои домены
-    CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS]
 
 # Приложения
 INSTALLED_APPS = [
@@ -38,10 +36,8 @@ INSTALLED_APPS = [
     'employer',
 ]
 
-# Авторизация
 LOGIN_REDIRECT_URL = 'employer:dashboard'
 LOGOUT_REDIRECT_URL = 'login'
-# AUTH_USER_MODEL = 'employer.Employee'
 
 # Middleware
 MIDDLEWARE = [
@@ -59,6 +55,7 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'source.urls'
 
+# Шаблоны
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -88,7 +85,7 @@ DATABASES = {
     }
 }
 
-# Валидация паролей
+# Валидация пароля
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -105,7 +102,6 @@ USE_TZ = True
 # Статика
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# PK
+# PK по умолчанию
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
