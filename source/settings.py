@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url  # добавляем импорт
 
 # Пути
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,16 +74,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'source.wsgi.application'
 
-# База данных
+# База данных: используем DATABASE_URL на Render
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv("DATABASE_URL")  # если есть DATABASE_URL, оно перекроет локальные DB_*
+    )
 }
 
 # Валидация пароля
