@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url  # добавляем импорт
+import dj_database_url
 
 # Пути
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,7 +14,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # ALLOWED_HOSTS из .env + wildcard для Render
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-ALLOWED_HOSTS += [".onrender.com"]  # разрешаем все поддомены Render
+ALLOWED_HOSTS += [".onrender.com"]
 
 # Протоколы безопасности
 if DEBUG:
@@ -43,6 +43,7 @@ LOGOUT_REDIRECT_URL = 'login'
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # один раз
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -50,9 +51,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# WhiteNoise для статики
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'source.urls'
 
@@ -77,7 +75,7 @@ WSGI_APPLICATION = 'source.wsgi.application'
 # База данных: используем DATABASE_URL на Render
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL")  # если есть DATABASE_URL, оно перекроет локальные DB_*
+        default=os.getenv("DATABASE_URL")
     )
 }
 
