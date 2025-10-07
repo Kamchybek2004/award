@@ -47,26 +47,28 @@
 
 
     {% if employers %}
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>№</th>
-                <th>ФИО</th>
-                <th>Должность</th>
-                <th>Отдел</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for emp in employers %}
-            <tr style="cursor: pointer;" onclick="window.location='{% url 'employer:employer_detail' emp.pk %}'">
-                <td>{{ forloop.counter }}</td>
-                <td>{{ emp.last_name }} {{ emp.first_name }} {{ emp.middle_name }}</td>
-                <td>{{ emp.position }}</td>
-                <td>{{ emp.department }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+         <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>№</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Отдел</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employers %}
+                <tr style="cursor: pointer;" onclick="window.location='{% url 'employer:employer_detail' emp.pk %}'">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ emp.last_name }} {{ emp.first_name }} {{ emp.middle_name }}</td>
+                    <td>{{ emp.position }}</td>
+                    <td>{{ emp.department }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
     <p>Сотрудников пока нет.</p>
     {% endif %}
