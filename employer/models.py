@@ -83,7 +83,7 @@ class Award(models.Model):
     award_date = models.DateField("Дата награждения")
     issued_by = models.CharField("Кем выдано", max_length=200)
     description = models.TextField("Описание", blank=True, null=True)
-    document_number = models.CharField("Приказ №", max_length=100)
+    document_number = models.CharField("Приказ №", max_length=100, blank=True, null=True)
 
     def __str__(self):
         if self.type == 'state' and self.state_award:
