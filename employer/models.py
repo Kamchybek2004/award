@@ -53,8 +53,8 @@ HONORARY_TITLES = [
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="employer_profile")
     
-    last_name = models.CharField("Фамилия", max_length=50, blank=True, null=True)
-    first_name = models.CharField("Имя", max_length=50, blank=True, null=True)
+    last_name = models.CharField("Фамилия", max_length=50)
+    first_name = models.CharField("Имя", max_length=50)
     middle_name = models.CharField("Отчество", max_length=50, blank=True, null=True)
     birth_date = models.DateField("Дата рождения", blank=True, null=True)
     position = models.CharField("Должность", max_length=100, blank=True, null=True)
