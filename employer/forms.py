@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -27,6 +28,13 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+    def clean_password1(self):
+        password = self.cleaned_data.get("password1")
+        # Проверка на кириллицу
+        if re.search(r'[а-яА-ЯёЁ]', password):
+            raise forms.ValidationError("Пароль не должен содержать кириллицу. Используйте только латиницу, цифры и спецсимволы.")
+        return password
 
 
 class EmployerForm(forms.ModelForm):
