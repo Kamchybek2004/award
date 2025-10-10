@@ -17,23 +17,23 @@
           <tbody>
             <tr>
               <th scope="row" class="w-50 w-md-25">Дата рождения:</th>
-              <td>{{ employer.birth_date }}</td>
+              <td>{{ employer.birth_date|default_if_none:"---" }}</td>
             </tr>
             <tr>
               <th scope="row">Должность:</th>
-              <td>{{ employer.position }}</td>
+              <td>{{ employer.position|default_if_none:"---" }}</td>
             </tr>
             <tr>
               <th scope="row">Факультет:</th>
-              <td>{{ employer.faculty }}</td>
+              <td>{{ employer.faculty|default_if_none:"---" }}</td>
             </tr>
             <tr>
               <th scope="row">Отдел:</th>
-              <td>{{ employer.department }}</td>
+              <td>{{ employer.department|default_if_none:"---" }}</td>
             </tr>
             <tr>
               <th scope="row">Дата приёма:</th>
-              <td>{{ employer.hire_date }}</td>
+              <td>{{ employer.hire_date|default_if_none:"---" }}</td>
             </tr>
           </tbody>
         </table>

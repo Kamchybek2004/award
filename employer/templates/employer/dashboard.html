@@ -8,11 +8,11 @@
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
             <p class="mb-2"><b>ФИО:</b> {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name }}</p>
-            <p class="mb-2"><b>Дата рождения:</b> {{ employer.birth_date }}</p>
-            <p class="mb-2"><b>Должность:</b> {{ employer.position }}</p>
-            <p class="mb-2"><b>Отдел:</b> {{ employer.department }}</p>
-            <p class="mb-2"><b>Факультет:</b> {{ employer.faculty }}</p>
-            <p class="mb-3"><b>Дата приёма:</b> {{ employer.hire_date }}</p>
+            <p class="mb-2"><b>Дата рождения:</b> {{ employer.birth_date|default_if_none:"---" }}</p>
+            <p class="mb-2"><b>Должность:</b> {{ employer.position|default_if_none:"---" }}</p>
+            <p class="mb-2"><b>Отдел:</b> {{ employer.department|default_if_none:"---" }}</p>
+            <p class="mb-2"><b>Факультет:</b> {{ employer.faculty|default_if_none:"---" }}</p>
+            <p class="mb-3"><b>Дата приёма:</b> {{ employer.hire_date|default_if_none:"---" }}</p>
 
             <!-- Кнопки -->
             <div class="d-grid gap-2 d-sm-flex">

@@ -28,19 +28,19 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ employer.last_name }} {{ employer.first_name }}</h5>
                                 {% if employer.position %}
-                                    <p class="card-text"><strong>Должность:</strong> {{ employer.position }}</p>
+                                    <p class="card-text"><strong>Должность:</strong> {{ employer.position|default_if_none:"---" }}</p>
                                 {% endif %}
                                 {% if employer.department %}
-                                    <p class="card-text"><strong>Отдел:</strong> {{ employer.department }}</p>
+                                    <p class="card-text"><strong>Отдел:</strong> {{ employer.department|default_if_none:"---" }}</p>
                                 {% endif %}
                                 {% if employer.faculty %}
-                                    <p class="card-text"><strong>Факультет:</strong> {{ employer.faculty }}</p>
+                                    <p class="card-text"><strong>Факультет:</strong> {{ employer.faculty|default_if_none:"---" }}</p>
                                 {% endif %}
                                 {% if employer.awards.all %}
                                     <p class="card-text"><strong>Награды:</strong></p>
                                     <ul class="list-group list-group-flush">
                                         {% for award in employer.awards.all %}
-                                            <li class="list-group-item">{{ award }}</li>
+                                            <li class="list-group-item">{{ award|default_if_none:"---" }}</li>
                                         {% endfor %}
                                     </ul>
                                 {% endif %}

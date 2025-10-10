@@ -62,8 +62,8 @@
                 <tr style="cursor: pointer;" onclick="window.location='{% url 'employer:employer_detail' emp.pk %}'">
                     <td>{{ forloop.counter }}</td>
                     <td>{{ emp.last_name }} {{ emp.first_name }} {{ emp.middle_name }}</td>
-                    <td>{{ emp.position }}</td>
-                    <td>{{ emp.department }}</td>
+                    <td>{{ emp.position|default_if_none:"---" }}</td>
+                    <td>{{ emp.department|default_if_none:"---" }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
