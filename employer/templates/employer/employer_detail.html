@@ -9,7 +9,7 @@
   <div class="card shadow-sm mb-4">
     <div class="card-body">
       <h2 class="card-title mb-4 text-center text-md-start">
-        {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name }}
+        {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name|default_if_none:" " }}
       </h2>
 
       <div class="table-responsive">

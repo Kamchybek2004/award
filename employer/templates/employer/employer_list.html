@@ -61,7 +61,7 @@
                 {% for emp in employers %}
                 <tr style="cursor: pointer;" onclick="window.location='{% url 'employer:employer_detail' emp.pk %}'">
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ emp.last_name|default_if_none:"---" }} {{ emp.first_name|default_if_none:"---" }} {{ emp.middle_name|default_if_none:"---" }}</td>
+                    <td>{{ emp.last_name|default_if_none:"---" }} {{ emp.first_name|default_if_none:"---" }} {{ emp.middle_name|default_if_none:" " }}</td>
                     <td>{{ emp.position|default_if_none:"---" }}</td>
                     <td>{{ emp.department|default_if_none:"---" }}</td>
                 </tr>
