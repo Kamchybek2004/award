@@ -7,7 +7,7 @@
     <!-- Карточка профиля -->
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <p class="mb-2"><b>ФИО:</b> {{ employer.last_name }} {{ employer.first_name }} {{ employer.middle_name }}</p>
+            <p class="mb-2"><b>ФИО:</b> {{ employer.last_name|default_if_none:"---" }} {{ employer.first_name|default_if_none:"---" }} {{ employer.middle_name|default_if_none:"---" }}</p>
             <p class="mb-2"><b>Дата рождения:</b> {{ employer.birth_date|default_if_none:"---" }}</p>
             <p class="mb-2"><b>Должность:</b> {{ employer.position|default_if_none:"---" }}</p>
             <p class="mb-2"><b>Отдел:</b> {{ employer.department|default_if_none:"---" }}</p>

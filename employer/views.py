@@ -112,6 +112,18 @@ def employer_list(request):
     """Список всех сотрудников с наградами (публичная страница)"""
     employers = Employer.objects.prefetch_related("awards").all()
 
+    # Исключаем "пустых" сотрудников (у кого все поля None или пустые)
+    employers = employers.exclude(
+        (Q(last_name__isnull=True) | Q(last_name="")) &
+        (Q(first_name__isnull=True) | Q(first_name="")) &
+        (Q(middle_name__isnull=True) | Q(middle_name="")) &
+        (Q(birth_date__isnull=True)) &
+        (Q(position__isnull=True) | Q(position="")) &
+        (Q(department__isnull=True) | Q(department="")) &
+        (Q(faculty__isnull=True) | Q(faculty="")) &
+        (Q(hire_date__isnull=True))
+    )
+
     faculty = request.GET.get("faculty")
     hire_date = request.GET.get("hire_date")
     department = request.GET.get("department")
