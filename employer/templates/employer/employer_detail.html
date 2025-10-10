@@ -71,7 +71,7 @@
               <td>{{ award.award_date }}</td>
               <td>{{ award.issued_by }}</td>
               <td>{{ award.get_type_display }}</td>
-              <td>{{ award.document_number }}</td>
+              <td>{{ award.document_number|default_if_none:"отсутствует" }}</td>
               <td>{{ award.description }}</td>
             </tr>
             {% endfor %}
