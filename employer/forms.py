@@ -53,7 +53,7 @@ class EmployerForm(forms.ModelForm):
             'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'position': forms.TextInput(attrs={'class': 'form-control'}),
             'department': forms.TextInput(attrs={'class': 'form-control'}),
-            'faculty': forms.TextInput(attrs={'class': 'form-control'}),
+            'faculty': forms.TextInput(attrs={'class': 'form-select'}),
             'hire_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 

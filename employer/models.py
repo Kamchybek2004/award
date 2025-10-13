@@ -17,6 +17,13 @@ STATE_AWARDS = [
     ('honorary_gramota', 'Почетная грамота Кыргызской Республики'), 
 ]
 
+FACULTIES = [
+    ('atf', 'Аграрно-технический факультет'),
+    ('pedfac', 'Педагогический факультет'),
+    ('filfac', 'Филологический факультет'),
+    ('econom_fac', 'Факультет экономики, менеджмента и физического воспитания'),
+]
+
 HONORARY_TITLES = [
     ('writer', 'Народный писатель Кыргызской Республики'),
     ('poet', 'Народный поэт Кыргызской Республики'),
@@ -59,7 +66,7 @@ class Employer(models.Model):
     birth_date = models.DateField("Дата рождения", blank=True, null=True)
     position = models.CharField("Должность", max_length=100, blank=True, null=True)
     department = models.CharField("Отдел", max_length=100, blank=True, null=True)
-    faculty = models.CharField("Факультет", max_length=100, blank=True, null=True)
+    faculty = models.CharField("Факультет", choices=FACULTIES, max_length=100, blank=True, null=True)
     hire_date = models.DateField("Дата приема на работу", blank=True, null=True)
 
     def __str__(self):
