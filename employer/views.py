@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from .forms import UserRegisterForm, EmployerForm, AwardForm
-from .models import Employer, Award, STATE_AWARDS, HONORARY_TITLES
+from .models import Employer, Award, STATE_AWARDS, HONORARY_TITLES, FACULTIES
 
 
 def register(request):
@@ -137,14 +137,18 @@ def employer_list(request):
     if department:
         employers = employers.filter(department=department)
     
-    faculties = Employer.objects.values_list("faculty", flat=True).distinct()
+    faculty_dict = dict(FACULTIES)
+
+    # faculties = Employer.objects.values_list("faculty", flat=True).distinct()
+
     departments = Employer.objects.values_list("department", flat=True).distinct()
     years_qs = Employer.objects.dates("hire_date", "year", order="DESC")
     years = [y.year for y in years_qs]
 
     return render(request, "employer/employer_list.html", {
-        "employers": employers, 
-        "faculties": faculties,
+        "employers": employers,
+        "faculty_dict": faculty_dict, 
+        # "faculties": faculties,
         "departments": departments,
         "years": years,
         })
