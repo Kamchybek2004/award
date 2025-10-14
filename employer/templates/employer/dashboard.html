@@ -11,7 +11,7 @@
             <p class="mb-2"><b>Дата рождения:</b> {{ employer.birth_date|default_if_none:"---" }}</p>
             <p class="mb-2"><b>Должность:</b> {{ employer.position|default_if_none:"---" }}</p>
             <p class="mb-2"><b>Отдел:</b> {{ employer.department|default_if_none:"---" }}</p>
-            <p class="mb-2"><b>Факультет:</b> {{ employer.faculty|default_if_none:"---" }}</p>
+            <p class="mb-2"><b>Факультет|колледж:</b> {{ employer.faculty|default_if_none:"---" }}</p>
             <p class="mb-3"><b>Дата приёма:</b> {{ employer.hire_date|default_if_none:"---" }}</p>
 
             <!-- Кнопки -->

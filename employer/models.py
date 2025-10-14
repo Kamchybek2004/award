@@ -22,6 +22,10 @@ FACULTIES = [
     ('pedfac', 'Педагогический факультет'),
     ('filfac', 'Филологический факультет'),
     ('econom_fac', 'Экономика и естественно-гуманитарных наук'),
+    ('atc', 'Аграрный техникум и экономический колледж'),
+    ('npc', 'Нарынский педагогический колледж'),
+    ('itc', 'Колледж иностранных языков и программирования компьютерных систем')
+
 ]
 
 HONORARY_TITLES = [
@@ -66,7 +70,7 @@ class Employer(models.Model):
     birth_date = models.DateField("Дата рождения", blank=True, null=True)
     position = models.CharField("Должность", max_length=100, blank=True, null=True)
     department = models.CharField("Отдел", max_length=100, blank=True, null=True)
-    faculty = models.CharField("Факультет", choices=FACULTIES, max_length=100, blank=True, null=True)
+    faculty = models.CharField("Факультет|колледж", choices=FACULTIES, max_length=100, blank=True, null=True)
     hire_date = models.DateField("Дата приема на работу", blank=True, null=True)
 
     def __str__(self):
