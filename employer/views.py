@@ -127,6 +127,7 @@ def employer_list(request):
     faculty = request.GET.get("faculty")
     hire_date = request.GET.get("hire_date")
     department = request.GET.get("department")
+    award_filter = request.GET.get("award")  
 
     if faculty:
         employers = employers.filter(faculty=faculty)
@@ -136,6 +137,13 @@ def employer_list(request):
     
     if department:
         employers = employers.filter(department=department)
+
+    
+      # --- Фильтрация по наградам ---
+    if award_filter == "state":
+        employers = employers.filter(awards__award_type__isnull=False)
+    elif award_filter == "department":
+        employers = employers.filter(awards__department__isnull=False).exclude(awards__department="")
 
     faculty_codes = Employer.objects.values_list("faculty", flat=True).distinct()
 
