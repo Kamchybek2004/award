@@ -7,15 +7,15 @@
 <!-- Форма фильтров -->
 <form method="get" class="row g-3 mb-4">
     <!-- Факультет -->
-    <div class="col-md-4">
-        <label for="faculty" class="form-label">Факультет</label>
-        <select name="faculty" id="faculty" class="form-select">
-            <option value="">Все</option>
-            {% for f in faculties %}
-                <option value="{{ f }}" {% if request.GET.faculty == f %}selected{% endif %}>{{ f }}</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="col-md-4">
+            <label for="faculty" class="form-label">Факультет</label>
+            <select name="faculty" id="faculty" class="form-select">
+                <option value="">Все</option>
+                {% for value, label in faculties %}
+                    <option value="{{ value }}" {% if request.GET.faculty == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
     <!-- Отдел -->
     <div class="col-md-4">

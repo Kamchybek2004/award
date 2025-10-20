@@ -137,8 +137,10 @@ def employer_list(request):
     if department:
         employers = employers.filter(department=department)
 
+    faculty_codes = Employer.objects.values_list("faculty", flat=True).distinct()
 
-    faculties = Employer.objects.values_list("faculty", flat=True).distinct()
+    faculty_choices = dict(Employer._meta.get_field("faculty").choices)
+    faculties = [(code, faculty_choices.get(code, code)) for code in faculty_codes if code]
 
     departments = Employer.objects.values_list("department", flat=True).distinct()
     years_qs = Employer.objects.dates("hire_date", "year", order="DESC")
