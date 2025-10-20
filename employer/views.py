@@ -143,7 +143,7 @@ def employer_list(request):
     if award_filter == "state":
         employers = employers.filter(awards__type="state")
     elif award_filter == "department":
-        employers = employers.filter(awards_type="department")
+        employers = employers.filter(awards__type="department")
 
     employers = employers.distinct()
     faculty_codes = Employer.objects.values_list("faculty", flat=True).distinct()
