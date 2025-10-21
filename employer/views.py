@@ -184,17 +184,17 @@ def employer_search(request):
 
 
 def award_search(request):
-   query = request.GET.get("q", "").strip()
-   employers = []
+    query = request.GET.get("q", "").strip()
+    employers = []
 
     if query:
         employers = (
-                Employer.objects.prefetch_related("awards").filter(
-                    Q(awards__state_award_icontains=query) |
-                    Q(awards__title_icontains=query) |
-                    Q(awards__honorary_title_icontains=query)
-                ).distinct()
-            )
+            Employer.objects.prefetch_related("awards").filter(
+                Q(awards__state_award__icontains=query) |
+                Q(awards__title__icontains=query) |
+                Q(awards__honorary_title__icontains=query)
+            ).distinct()
+        )
 
     return render(request, "employer/award_search.html", {
         "query": query,
