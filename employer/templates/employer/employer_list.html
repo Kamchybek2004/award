@@ -40,10 +40,12 @@
     </div>
 
     <div class="col-md-4">
-        <label for="award_search" class="form-label">Поиск по названию награды</label>
-        <input type="text" name="award_search" id="award_search" 
-            value="{{ request.GET.award_search }}" class="form-control" 
-            placeholder="Введите название награды...">
+        <form method="get" action="{% url 'employer:award_search' %}">
+            <label for="award_search" class="form-label">Поиск по названию награды</label>
+            <input type="text" name="award_search" id="award_search" 
+                value="{{ request.GET.award_search }}" class="form-control" 
+                placeholder="Введите название награды...">
+        </form>
     </div>
     <!--
     <div class="col-md-4">

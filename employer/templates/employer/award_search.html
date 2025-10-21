@@ -1,0 +1,59 @@
+{% extends "employer/base.html" %}
+{% block title %}Поиск по наградам{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🔍 Поиск сотрудников по наградам</h2>
+
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Введите название награды...">
+            <button type="submit" class="btn btn-primary">Поиск</button>
+        </div>
+    </form>
+
+    {% if query and not employers %}
+        <p class="text-muted">По запросу <strong>"{{ query }}"</strong> ничего не найдено.</p>
+    {% endif %}
+
+    {% if employers %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>№</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Отдел</th>
+                    <th>Награды</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'employer:employer_detail' emp.pk %}">
+                            {{ emp.last_name }} {{ emp.first_name }} {{ emp.middle_name }}
+                        </a>
+                    </td>
+                    <td>{{ emp.position|default_if_none:"---" }}</td>
+                    <td>{{ emp.department|default_if_none:"---" }}</td>
+                    <td>
+                        {% for award in emp.awards.all %}
+                            {% if query|lower in award.title|lower or query|lower in award.state_award|lower or query|lower in award.honorary_title|lower %}
+                                <div>
+                                    <strong>{{ award.title|default:award.state_award|default:award.honorary_title }}</strong><br>
+                                    <small class="text-muted">{{ award.description|default:"(нет описания)" }}</small>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

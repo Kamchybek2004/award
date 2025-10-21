@@ -28,4 +28,5 @@ urlpatterns = [
     # Поиск 
     path('search/', views.employer_search, name='employer_search'),
     path("employer/<int:pk>/", EmployerDetailView.as_view(), name="employer_detail"),
+    path("search-award/", views.award_search_view, name="award_search"),
 ]

@@ -127,7 +127,6 @@ def employer_list(request):
     faculty = request.GET.get("faculty")    
     hire_date = request.GET.get("hire_date")
     department = request.GET.get("department")
-    award_search = request.GET.get("award_search")
 
     if faculty:
         employers = employers.filter(faculty=faculty)
@@ -138,12 +137,7 @@ def employer_list(request):
     if department:
         employers = employers.filter(department=department)
 
-    if award_search:
-        employers = employers.filter(
-            Q(awards__state_award__icontains=award_search) |
-            Q(awards__honorary_title__icontains=award_search) |
-            Q(awards__title__icontains=award_search) 
-        )
+
     employers = employers.distinct()
     faculty_codes = Employer.objects.values_list("faculty", flat=True).distinct()
 
@@ -186,3 +180,23 @@ def employer_search(request):
         'query': raw_query,
     }
     return render(request, 'employer/employer_search.html', context)
+
+
+
+def award_search(request):
+   query = request.GET.get("q", "").strip()
+   employers = []
+
+   if query:
+    employers = (
+        Employer.objects.prefetch_related("awards").filter(
+            Q(awards__state_award_icontains=query) |
+            Q(awards__title_icontains=query) |
+            Q(awards__honorary_title_icontains=query)
+        ).distinct()
+    )
+
+    return render(request, "employer/award_search.html", {
+        "query": query,
+        "employers": employers,
+    })
