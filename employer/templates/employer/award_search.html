@@ -44,7 +44,7 @@
                                 <div>
                                     <strong>{{ award.title|default:award.state_award|default:award.honorary_title }}</strong><br>
                                     <small class="text-muted">{{ award.description|default:"(нет описания)" }}</small><br>
-                                    <small class="text-danger">{{award.document_number|default:"отсуствует"}}</small>
+                                    <small class="text-danger">{{award.document_number|default:"---"}}</small>
                                     <hr>
                                 </div>
                             {% endif %}
