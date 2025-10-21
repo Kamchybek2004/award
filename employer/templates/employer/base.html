@@ -39,11 +39,13 @@
            <ul class="navbar-nav ms-auto d-flex align-items-center">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
+                        <i class="bi bi-person-circle"></i>
                         <a class="nav-link text-light" href="{% url 'employer:dashboard' %}">Личный кабинет</a>
                     </li>
                     <li class="nav-item">
                         <form method="post" action="{% url 'employer:logout' %}" class="nav-item m-0 p-0">
                             {% csrf_token %}
+                            <i class="bi bi-box-arrow-right"></i>
                             <button type="submit" class="btn btn-link nav-link text-light m-0 p-0">
                                 Выйти
                             </button>
