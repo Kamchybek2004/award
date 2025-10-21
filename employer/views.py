@@ -140,9 +140,9 @@ def employer_list(request):
 
     if award_search:
         employers = employers.filter(
-            Q(awards__state_award__incontains=award_search) |
-            Q(awards__honorary_title__incontains=award_search) |
-            Q(awards__title__incontains=award_search) 
+            Q(awards__state_award__icontains=award_search) |
+            Q(awards__honorary_title__icontains=award_search) |
+            Q(awards__title__icontains=award_search) 
         )
     employers = employers.distinct()
     faculty_codes = Employer.objects.values_list("faculty", flat=True).distinct()
