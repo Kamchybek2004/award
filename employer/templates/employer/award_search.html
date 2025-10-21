@@ -25,7 +25,6 @@
                     <th>ФИО</th>
                     <th>Должность</th>
                     <th>Награды</th>
-                    <th>Приказ №</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,8 +42,9 @@
                             {% if query|lower in award.title|lower or query|lower in award.state_award|lower or query|lower in award.honorary_title|lower %}
                                 <div>
                                     <strong>{{ award.title|default:award.state_award|default:award.honorary_title }}</strong><br>
-                                    <small class="text-muted">{{ award.description|default:"(нет описания)" }}</small>
-                                    <small class="text-muted">{{award.document_number|default:"отсуствует"}}</small>
+                                    <small class="text-muted">{{ award.description|default:"(нет описания)" }}</small><br>
+                                    <small class="text-danger">{{award.document_number|default:"отсуствует"}}</small>
+                                    <hr>
                                 </div>
                             {% endif %}
                         {% endfor %}
