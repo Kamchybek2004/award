@@ -3,13 +3,13 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">🔍 Поиск сотрудников по наградам</h2>
+    <h2 class="mb-4">Поиск сотрудников по наградам</h2>
 
     <form method="get" class="mb-4">
         <div class="input-group">
             <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Введите название награды...">
-            <button type="submit" class="btn btn-primary">Поиск</button>
         </div>
+        <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
 
     {% if query and not employers %}
