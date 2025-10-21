@@ -24,8 +24,8 @@
                     <th>№</th>
                     <th>ФИО</th>
                     <th>Должность</th>
-                    <th>Отдел</th>
                     <th>Награды</th>
+                    <th>Приказ №</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,13 +38,13 @@
                         </a>
                     </td>
                     <td>{{ emp.position|default_if_none:"---" }}</td>
-                    <td>{{ emp.department|default_if_none:"---" }}</td>
                     <td>
                         {% for award in emp.awards.all %}
                             {% if query|lower in award.title|lower or query|lower in award.state_award|lower or query|lower in award.honorary_title|lower %}
                                 <div>
                                     <strong>{{ award.title|default:award.state_award|default:award.honorary_title }}</strong><br>
                                     <small class="text-muted">{{ award.description|default:"(нет описания)" }}</small>
+                                    <small class="text-muted">{{award.document_number|default"отсуствует"}}</small>
                                 </div>
                             {% endif %}
                         {% endfor %}
