@@ -38,25 +38,6 @@
             {% endfor %}
         </select>
     </div>
-
-    <div class="col-md-4">
-        <form method="get" action="{% url 'employer:award_search' %}">
-            <label for="award_search" class="form-label">Поиск по названию награды</label>
-            <input type="text" name="award_search" id="award_search" 
-                value="{{ request.GET.award_search }}" class="form-control" 
-                placeholder="Введите название награды...">
-        </form>
-    </div>
-    <!--
-    <div class="col-md-4">
-        <label for="award" class="form-label">Тип награды</label>
-        <select name="award" id="award" class="form-select">
-            <option value="">Все</option>
-            <option value="state" {% if request.GET.award == "state" %}selected{% endif %}>Государственные</option>
-            <option value="department" {% if request.GET.award == "department" %}selected{% endif %}>Ведомственные</option>
-        </select>
-    </div>
-    -->
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Применить фильтры</button>
     </div>
