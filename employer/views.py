@@ -154,7 +154,7 @@ def employer_list(request):
         "faculties": faculties,
         "departments": departments,
         "years": years,
-        })
+    })
 
 
 def employer_search(request):
