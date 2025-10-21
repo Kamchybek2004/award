@@ -39,6 +39,12 @@
         </select>
     </div>
 
+    <div class="col-md-4">
+        <label for="award_search" class="form-label">Поиск по названию награды</label>
+        <input type="text" name="award_search" id="award_search" 
+            value="{{ request.GET.award_search }}" class="form-control" 
+            placeholder="Введите название награды...">
+    </div>
     <!--
     <div class="col-md-4">
         <label for="award" class="form-label">Тип награды</label>
@@ -49,15 +55,10 @@
         </select>
     </div>
     -->
-
-    
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Применить фильтры</button>
     </div>
-
 </form>
-
-
 
     {% if employers %}
     <div class="table-responsive">

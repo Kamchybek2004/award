@@ -127,7 +127,7 @@ def employer_list(request):
     faculty = request.GET.get("faculty")    
     hire_date = request.GET.get("hire_date")
     department = request.GET.get("department")
-    award_filter = request.GET.get("award")  
+    award_search = request.GET.get("award_search")
 
     if faculty:
         employers = employers.filter(faculty=faculty)
@@ -138,13 +138,12 @@ def employer_list(request):
     if department:
         employers = employers.filter(department=department)
 
-    
-      # --- Фильтрация по наградам ---
-    if award_filter == "state":
-        employers = employers.filter(awards__type="state")
-    elif award_filter == "department":
-        employers = employers.filter(awards__type="department")
-
+    if award_search:
+        employers = employers.filter(
+            Q(awards__state_award__incontains=award_search) |
+            Q(awards__honorary_title__incontains=award_search) |
+            Q(awards__title__incontains=award_search) 
+        )
     employers = employers.distinct()
     faculty_codes = Employer.objects.values_list("faculty", flat=True).distinct()
 
@@ -154,6 +153,7 @@ def employer_list(request):
     departments = Employer.objects.values_list("department", flat=True).distinct()
     years_qs = Employer.objects.dates("hire_date", "year", order="DESC")
     years = [y.year for y in years_qs]
+
 
     return render(request, "employer/employer_list.html", {
         "employers": employers,
