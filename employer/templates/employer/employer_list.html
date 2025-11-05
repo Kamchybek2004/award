@@ -61,7 +61,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ emp.last_name|default_if_none:"---" }} {{ emp.first_name|default_if_none:"---" }} {{ emp.middle_name|default_if_none:" " }}</td>
                     <td>{{ emp.position|default_if_none:"---" }}</td>
-                    <td>{{ emp.faculties|default_if_none:"---"}}</td>
+                    <td>{{ emp.facultydefault_if_none:"---"}}</td>
                     <td>{{ emp.department|default_if_none:"---" }}</td>
                 </tr>
                 {% endfor %}
